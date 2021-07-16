@@ -1,0 +1,20 @@
+{
+    "name": "nicolemariejimenez/composer-basics",
+    "description": "An introduction to composer",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Nicole Marie Jimenez",
+            "email": "nicolemarie.jimenez@students.salle.url"
+        }
+    ],
+    "require": {
+        "fzaninotto/faker": "^1.5",
+        "monolog/monolog": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "SallePW\\": "src/"
+        }
+    }
+}
