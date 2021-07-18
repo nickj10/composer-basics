@@ -103,7 +103,7 @@ Now, let's try to build our code and see all of these working.
 
 # Creating the model class
 
-We will be creating an simple application that shows a list of random user names and create logs.
+We will be creating an simple application that shows a list of random user names.
 
 First, create the `index.php` where the main code will be. This file is inside the `public` folder.
 
@@ -279,4 +279,74 @@ With this, you will be able to use the `User` class and `Book` class to instanti
 
 # Using packages
 
-First, we want to generate fake data with the [**Faker**](https://github.com/fzaninotto/Faker/blob/master/readme.md) package.
+First, we want to generate fake data with the [**Faker**](https://github.com/fzaninotto/Faker/blob/master/readme.md) package. According to the documentation, you can start using the package by creating the Faker:
+```
+use Faker\Factory; // using the Factory class included in the Faker package
+
+$faker = Factory::create();
+```
+
+Use this faker to create random user names. 
+```
+<?php
+
+declare(strict_types=1);
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use SallePW\Model\User;
+use SallePW\Model\Book;
+use Faker\Factory;
+
+$faker = Factory::create();
+
+// $user = new User(1, "Nicole Marie Jimenez");
+// $book = new Book("Design Systems", "Design", "Alla Kholmatova", 2017);
+
+// echo $user->getName();
+// echo $book->getName();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Composer Basics</title>
+    <style>
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Library system</h1>
+    <?php
+    $user = new User(1, $faker->name());
+    $book = new Book("Design Systems", "Design", "Alla Kholmatova", 2017);
+    ?>
+    <table>
+        <tr>
+            <th>User</th>
+            <th>Book</th>
+            <th>Author</th>
+        </tr>
+        <tr>
+            <td><?php echo $user->getName(); ?></td>
+            <td><?php echo $book->getName(); ?></td>
+            <td><?php echo $book->getAuthor(); ?></td>
+        </tr>
+
+    </table>
+</body>
+
+</html>
+```
+
+Try refreshing your page. Every time you refresh it, you will see a different name. You can experiment more on installing packages using **Composer** and using them in your application.
