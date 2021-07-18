@@ -11,7 +11,7 @@ final class User
     {
     }
 
-    public function id(): int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -22,7 +22,7 @@ final class User
         return $this;
     }
 
-    public function name()
+    public function getName()
     {
         return $this->name;
     }

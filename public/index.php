@@ -2,20 +2,22 @@
 
 declare(strict_types=1);
 
-
 require_once __DIR__ . '/../vendor/autoload.php';
 
-require 'src/Model/User.php';
+use SallePW\Model\User;
+use SallePW\Model\Book;
 // use Faker\Factory;
 
 // $faker = Factory::create();
 
 $user = new User(1, "Nicole Marie Jimenez");
+$book = new Book("Design Systems", "Design", "Alla Kholmatova", 2017);
 
-echo $user->name();
+echo $user->getName();
+echo $book->getName();
 ?>
 <!-- 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 
 <head>

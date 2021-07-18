@@ -111,14 +111,10 @@ First, create the `index.php` where the main code will be. This file is inside t
 <?php
 declare(strict_types=1);
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
 ?>
 ```
 
 You can observe that the first line is `declare(strict_types=1);`. By setting `strict_types=1`, you tell the engine that `int $x` means `$x must only be an int proper, no type coercion allowed.` You have the great assurance you're getting exactly and only what was given, without any conversion or potential loss.
-
-Just below that line, you are adding the `autoload.php` file which is inside the `vendor/` folder. This will load the namespaces defined in `composer.json`.
 
 Now, create `src/Model` folder in the base directory of the project. Inside the `Model` folder, create a class called `User`.
 
@@ -127,7 +123,7 @@ Now, create `src/Model` folder in the base directory of the project. Inside the 
 
 declare(strict_types=1);
 
-namespace SallePW\Model;
+namespace SallePW\Model; // this class is in the SallePW\Model namespace
 
 final class User
 {
@@ -136,7 +132,7 @@ final class User
     {
     }
 
-    public function id(): int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -147,7 +143,7 @@ final class User
         return $this;
     }
 
-    public function name()
+    public function getName()
     {
         return $this->name;
     }
@@ -161,14 +157,14 @@ final class User
 
 ```
 
-You can see that we are saying that this class is in  `SallePW\Model`. After creating the User class, we are ready to use it in our application.
+You can see that we are saying that this class is in  `SallePW\Model` namespace. After creating the User class, we are ready to use it in our application.
 
 In the `ìndex.php` file, add the following code:
 
 ```
 $user = new User(1, "Nicole Marie Jimenez");
 
-echo $user->name();
+echo $user->getName();
 ```
 
 Open http://localhost:8030/ in your favorite browser. What error do you see? You may see this error on the page:
@@ -180,11 +176,107 @@ Fatal error: Uncaught Error: Class "User" not found in /app/public/index.php:8
 Why did this happen? The error says that the "User" class is not found. You are trying to use instantiate the User class, but it is not imported. To fix this, add this line just below the `require_once` line:
 
 ```
-require 'src/Model/User.php';
+require '../src/Model/User.php'; // remember that the index.php is inside the public folder
 ```
 
-If you open http://localhost:8030/ again, what error is shown? Since the `User`
+If you open http://localhost:8030/ again, what error is shown? Since the `User` class now is namespaced, you need to use the fully qualified name that includes the namespace like this:
 
+```
+<?php
 
+declare(strict_types=1);
 
+require '../src/Model/User.php';
 
+$user = new SallePW\Model\User(1, "Nicole Marie Jimenez");
+
+echo $user->getName();
+?>
+```
+
+This will work. However, to take advantage of PHP namespaces, you can import a class from a namespace instead of importing the namespace. Add the the following line just below `require '../src/Model/User.php';`:
+```
+use SallePW\Model\User;
+```
+
+The `use` operator lets you import the `User` class from the `SallePW\Model` namespace. Therefore, we don’t have to prefix the class name with the namespace.
+```
+$user = new User(1, "Nicole Marie Jimenez"); // you can directly use the User class
+```
+
+What if there are more classes inside the same namespace? Add another class called `Book` inside the `Model` folder.
+```
+<?php
+
+declare(strict_types=1);
+
+namespace SallePW\Model;
+
+final class Book {
+  public function __construct(
+    private string $name, 
+    private string $genre,
+    private string $author,
+    private int $year)
+    {
+    }
+
+    public function getName() {
+      return $this->name;
+    }
+
+    public function getGenre() {
+      return $this->genre;
+    }
+
+    public function getAuthor() {
+      return $this->author;
+    }
+
+    public function getYear() {
+      return $this->year;
+    }
+}
+```
+
+To be able to use both classes, you can either import them individually:
+```
+require '../src/Model/User.php';
+require '../src/Model/Book.php';
+
+use SallePW\Model\User;
+use SallePW\Model\Book;
+
+$user = new User(1, "Nicole Marie Jimenez");
+$book = new Book("Design Systems", "Design", "Alla Kholmatova", 2017);
+
+echo $user->getName();
+echo $book->getName();
+```
+
+There is a way to simplify this. Both of these classes are in the same namespace. You have previously defined in the `composer.json` the namespaces. Instead of having to use `require` for each file individually, you can take advantage of the namespaces. First, remove the following lines:
+```
+require '../src/Model/User.php';
+require '../src/Model/Book.php';
+```
+
+Check the browser again. What error do you see? Why do you think PHP raised that error?
+
+Now, just below the `declare(strict_types=1);` line, add the `autoload.php` file which is inside the `vendor/` folder. This will load the namespaces defined in `composer.json`.
+
+```
+<?php
+
+declare(strict_types=1);
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use SallePW\Model\User;
+use SallePW\Model\Book;
+```
+
+With this, you will be able to use the `User` class and `Book` class to instantiate new objects. These two classes are the classes that you have created yourself. Now, it's time to use the classes that come from the packages or dependencies that you installed using **composer**.
+
+# Using packages
+
+First, we want to generate fake data with the [**Faker**](https://github.com/fzaninotto/Faker/blob/master/readme.md) package.
