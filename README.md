@@ -166,10 +166,25 @@ You can see that we are saying that this class is in  `SallePW\Model`. After cre
 In the `ìndex.php` file, add the following code:
 
 ```
-$user = new User(1, "Aleix Maurya");
+$user = new User(1, "Nicole Marie Jimenez");
 
-echo $user;
+echo $user->name();
 ```
+
+Open http://localhost:8030/ in your favorite browser. What error do you see? You may see this error on the page:
+
+```
+Fatal error: Uncaught Error: Class "User" not found in /app/public/index.php:8
+```
+
+Why did this happen? The error says that the "User" class is not found. You are trying to use instantiate the User class, but it is not imported. To fix this, add this line just below the `require_once` line:
+
+```
+require 'src/Model/User.php';
+```
+
+If you open http://localhost:8030/ again, what error is shown? Since the `User`
+
 
 
 

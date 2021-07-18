@@ -5,14 +5,16 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use SallePW\Model\User;
-use Faker\Factory;
+require 'src/Model/User.php';
+// use Faker\Factory;
 
-$faker = Factory::create();
+// $faker = Factory::create();
 
-$user = new User(1, $faker->name);
+$user = new User(1, "Nicole Marie Jimenez");
+
+echo $user->name();
 ?>
-
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,4 +30,4 @@ $user = new User(1, $faker->name);
     <p><?php echo $user->name() ?></p>
 </body>
 
-</html>
+</html> -->
