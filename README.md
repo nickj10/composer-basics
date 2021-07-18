@@ -101,5 +101,75 @@ With this, we are defining a mapping from namespaces to directories. The `src/` 
 
 Now, let's try to build our code and see all of these working.
 
-#
+# Creating the model class
+
+We will be creating an simple application that shows a list of random user names and create logs.
+
+First, create the `index.php` where the main code will be. This file is inside the `public` folder.
+
+```
+<?php
+declare(strict_types=1);
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+?>
+```
+
+You can observe that the first line is `declare(strict_types=1);`. By setting `strict_types=1`, you tell the engine that `int $x` means `$x must only be an int proper, no type coercion allowed.` You have the great assurance you're getting exactly and only what was given, without any conversion or potential loss.
+
+Just below that line, you are adding the `autoload.php` file which is inside the `vendor/` folder. This will load the namespaces defined in `composer.json`.
+
+Now, create `src/Model` folder in the base directory of the project. Inside the `Model` folder, create a class called `User`.
+
+```
+<?php
+
+declare(strict_types=1);
+
+namespace SallePW\Model;
+
+final class User
+{
+
+    public function __construct(private int $id, private string $name)
+    {
+    }
+
+    public function id(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function name()
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+}
+
+```
+
+You can see that we are saying that this class is in  `SallePW\Model`. After creating the User class, we are ready to use it in our application.
+
+In the `ìndex.php` file, add the following code:
+
+```
+$user = new User(1, "Aleix Maurya");
+
+echo $user;
+```
+
+
 
