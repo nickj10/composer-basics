@@ -10,8 +10,8 @@ use Faker\Factory;
 
 $faker = Factory::create();
 
-// $user = new User(1, "Nicole Marie Jimenez");
-// $book = new Book("Design Systems", "Design", "Alla Kholmatova", 2017);
+$user = new User(1, $faker->name());
+$book = new Book("Design Systems", "Design", "Alla Kholmatova", 2017);
 
 // echo $user->getName();
 // echo $book->getName();
@@ -37,10 +37,6 @@ $faker = Factory::create();
 
 <body>
     <h1>Library system</h1>
-    <?php
-    $user = new User(1, $faker->name());
-    $book = new Book("Design Systems", "Design", "Alla Kholmatova", 2017);
-    ?>
     <table>
         <tr>
             <th>User</th>

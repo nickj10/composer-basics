@@ -22,24 +22,5 @@ services:
       - "9030:9001"
     volumes:
       - .:/app
-    depends_on:
-      - db
-
-  db:
-    container_name: pw_composer-db
-    image: mysql:8.0.25
-    restart: unless-stopped
-    ports:
-      - "3330:3306"
-    env_file:
-      - .env
-
-  admin:
-    container_name: pw_composer-admin
-    image: adminer:4.8.1-standalone
-    restart: always
-    ports:
-      - 8080:8080
-    depends_on:
-      - db
+      
 

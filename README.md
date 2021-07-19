@@ -52,7 +52,7 @@ At this point, if you open the _composer.json_ file, you will notice that a new 
 vendor
 ├── autoload.php
 ├── composer
-└── fzaninotto
+└── fakerphp
 ```
 
 As you can see, the package "fzaninotto" was added. This is the vendor name of the package. If we open the directory, we can see:
@@ -61,7 +61,7 @@ As you can see, the package "fzaninotto" was added. This is the vendor name of t
 vendor
 ├── autoload.php
 ├── composer
-└── fzaninotto
+└── fakerphp
     └── faker
 ```
 
@@ -114,7 +114,7 @@ declare(strict_types=1);
 ?>
 ```
 
-You can observe that the first line is `declare(strict_types=1);`. By setting `strict_types=1`, you tell the engine that `int $x` means `$x must only be an int proper, no type coercion allowed.` You have the great assurance you're getting exactly and only what was given, without any conversion or potential loss.
+You can observe that the first line is `declare(strict_types=1);`. By setting `strict_types=1`, you tell the engine that `int $x` means `$x must only be an int property, no type coercion allowed.` You have the great assurance you're getting exactly and only what was given, without any conversion or potential loss.
 
 Now, create `src/Model` folder in the base directory of the project. Inside the `Model` folder, create a class called `User`.
 
@@ -239,7 +239,7 @@ final class Book {
 }
 ```
 
-To be able to use both classes, you can either import them individually:
+To be able to use both classes, you can import them individually:
 ```
 require '../src/Model/User.php';
 require '../src/Model/Book.php';
@@ -254,7 +254,7 @@ echo $user->getName();
 echo $book->getName();
 ```
 
-There is a way to simplify this. Both of these classes are in the same namespace. You have previously defined in the `composer.json` the namespaces. Instead of having to use `require` for each file individually, you can take advantage of the namespaces. First, remove the following lines:
+But, there is a way to simplify this. Both of these classes are in the same namespace. You have previously defined in the `composer.json` the namespaces. Instead of having to use `require` for each file individually, you can take advantage of the namespaces. First, remove the following lines:
 ```
 require '../src/Model/User.php';
 require '../src/Model/Book.php';
@@ -279,7 +279,7 @@ With this, you will be able to use the `User` class and `Book` class to instanti
 
 # Using packages
 
-First, we want to generate fake data with the [**Faker**](https://github.com/fzaninotto/Faker/blob/master/readme.md) package. According to the documentation, you can start using the package by creating the Faker:
+First, we want to generate fake data with the [**Faker**](https://github.com/FakerPHP/Faker/blob/main/README.md) package. According to the documentation, you can start using the package by creating the Faker:
 ```
 use Faker\Factory; // using the Factory class included in the Faker package
 
