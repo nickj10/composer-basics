@@ -4,7 +4,7 @@ In this exercise we are going to explore some of the basic commands and function
 
 ## Prerequisites
 
-In this exercise we will install composer inside a docker container so we need to have docker installed. 
+In this exercise we will install composer inside a docker container so we need to have docker installed.
 
 ## Introduction
 
@@ -20,24 +20,23 @@ git clone <composer-basics>
 
 Now, we are going to initialize the project by running the `docker run --rm --interactive --tty -v $(pwd):/app composer init` command. This command is going to ask you a few questions about the project that you need to answer. After finishing all the questions, it should create a file called **composer.json** with all the provided information.
 
-* If you are using Windows PowerShell, use curly brackets for the `pwd` command: `docker run --rm --interactive --tty -v ${pwd}:/app composer init`.
+- If you are using Windows PowerShell, use curly brackets for the `pwd` command: `docker run --rm --interactive --tty -v ${pwd}:/app composer init`.
 
 If you open it with your favourite editor, it should look something like this:
 
 ```json
 {
-    "name": "nicolemariejimenez/composer-basics",
-    "description": "An introduction to composer",
-    "type": "project",
-    "authors": [
-        {
-            "name": "Nicole Marie Jimenez",
-            "email": "nicolemarie.jimenez@students.salle.url"
-        }
-    ],
-    "require": {}
+  "name": "nicolemariejimenez/composer-basics",
+  "description": "An introduction to composer",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Nicole Marie Jimenez",
+      "email": "nicolemarie.jimenez@students.salle.url"
+    }
+  ],
+  "require": {}
 }
-
 ```
 
 Now we are going to install the **Faker** library from [Packagist](https://packagist.org/). Open your terminal and type the following command:
@@ -137,12 +136,6 @@ final class User
         return $this->id;
     }
 
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-        return $this;
-    }
-
     public function getName()
     {
         return $this->name;
@@ -157,7 +150,7 @@ final class User
 
 ```
 
-You can see that we are saying that this class is in  `SallePW\Model` namespace. After creating the User class, we are ready to use it in our application.
+You can see that we are saying that this class is in `SallePW\Model` namespace. After creating the User class, we are ready to use it in our application.
 
 In the `ìndex.php` file, add the following code:
 
@@ -195,16 +188,19 @@ echo $user->getName();
 ```
 
 This will work. However, to take advantage of PHP namespaces, you can import a class from a namespace instead of importing the namespace. Add the the following line just below `require '../src/Model/User.php';`:
+
 ```
 use SallePW\Model\User;
 ```
 
 The `use` operator lets you import the `User` class from the `SallePW\Model` namespace. Therefore, we don’t have to prefix the class name with the namespace.
+
 ```
 $user = new User(1, "Nicole Marie Jimenez"); // you can directly use the User class
 ```
 
 What if there are more classes inside the same namespace? Add another class called `Book` inside the `Model` folder.
+
 ```
 <?php
 
@@ -214,7 +210,7 @@ namespace SallePW\Model;
 
 final class Book {
   public function __construct(
-    private string $name, 
+    private string $name,
     private string $genre,
     private string $author,
     private int $year)
@@ -240,6 +236,7 @@ final class Book {
 ```
 
 To be able to use both classes, you can import them individually:
+
 ```
 require '../src/Model/User.php';
 require '../src/Model/Book.php';
@@ -255,6 +252,7 @@ echo $book->getName();
 ```
 
 But, there is a way to simplify this. Both of these classes are in the same namespace. You have previously defined in the `composer.json` the namespaces. Instead of having to use `require` for each file individually, you can take advantage of the namespaces. First, remove the following lines:
+
 ```
 require '../src/Model/User.php';
 require '../src/Model/Book.php';
@@ -280,13 +278,17 @@ With this, you will be able to use the `User` class and `Book` class to instanti
 # Using packages
 
 First, we want to generate fake data with the [**Faker**](https://github.com/FakerPHP/Faker/blob/main/README.md) package. According to the documentation, you can start using the package by creating the Faker:
+
 ```
 use Faker\Factory; // using the Factory class included in the Faker package
 
 $faker = Factory::create();
 ```
 
-Use this faker to create random user names. 
+Thanks to Composer's `vendor/autoload.php`, which is used for autoloading libraries for PHP projects,
+
+Use this faker to create random user names.
+
 ```
 <?php
 
@@ -300,8 +302,8 @@ use Faker\Factory;
 
 $faker = Factory::create();
 
-// $user = new User(1, "Nicole Marie Jimenez");
-// $book = new Book("Design Systems", "Design", "Alla Kholmatova", 2017);
+$user = new User(1, $faker->name());
+$book = new Book("Design Systems", "Design", "Alla Kholmatova", 2017);
 
 // echo $user->getName();
 // echo $book->getName();
@@ -327,10 +329,6 @@ $faker = Factory::create();
 
 <body>
     <h1>Library system</h1>
-    <?php
-    $user = new User(1, $faker->name());
-    $book = new Book("Design Systems", "Design", "Alla Kholmatova", 2017);
-    ?>
     <table>
         <tr>
             <th>User</th>
