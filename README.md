@@ -277,6 +277,8 @@ With this, you will be able to use the `User` class and `Book` class to instanti
 
 # Using packages
 
+Thanks to Composer's `vendor/autoload.php`, which is used for autoloading libraries for PHP projects, third party packages are visible to the application. Autoloading allows us to use PHP files without the need to `require()` or `include()` them and is considered a hallmark of modern-day programming. Including files individually as we have seen before will become even more difficult if the project depends on a lot of external libraries or packages. That's why this is an easy way of loading files.
+
 First, we want to generate fake data with the [**Faker**](https://github.com/FakerPHP/Faker/blob/main/README.md) package. According to the documentation, you can start using the package by creating the Faker:
 
 ```
@@ -284,8 +286,6 @@ use Faker\Factory; // using the Factory class included in the Faker package
 
 $faker = Factory::create();
 ```
-
-Thanks to Composer's `vendor/autoload.php`, which is used for autoloading libraries for PHP projects,
 
 Use this faker to create random user names.
 
