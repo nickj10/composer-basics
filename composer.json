@@ -9,8 +9,8 @@
         }
     ],
     "require": {
-        "fzaninotto/faker": "^1.5",
-        "monolog/monolog": "^2.3"
+        "monolog/monolog": "^2.3",
+        "fakerphp/faker": "^1.15"
     },
     "autoload": {
         "psr-4": {
