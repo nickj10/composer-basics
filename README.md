@@ -152,7 +152,7 @@ final class User
 
 You can see that we are saying that this class is in `SallePW\Model` namespace. After creating the User class, we are ready to use it in our application.
 
-In the `ìndex.php` file, add the following code:
+In the `index.php` file, add the following code:
 
 ```
 $user = new User(1, "Nicole Marie Jimenez");
